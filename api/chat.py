@@ -457,8 +457,8 @@ async def get_model_list():
             {
                 "id": 1,
                 "category": "chat",
-                "modelName": "qwen3.5-plus",
-                "modelDescribe": "通义千问3.5 Plus",
+                "modelName": "gpt-4",
+                "modelDescribe": "gpt4模型，适合复杂对话和任务",
                 "modelPrice": 0.01,
                 "modelType": "chat",
                 "modelShow": True,

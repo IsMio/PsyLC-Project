@@ -109,7 +109,26 @@ class ChatProcess:
         # 导入 api.chat 模块，以便能够设置其全局变量
         import api.chat
         try:
-            # （1）初始化模型和嵌入模型
+            # （1）初始化模型和嵌入模型（使用辅助api)
+            api.chat.model = ChatOpenAI(
+                base_url=Config.ASSIST_DASHSCOPE_API_BASE_URL,
+                api_key=Config.get_assist_api_key(),
+                model=Config.MODEL_NAME,
+                temperature=Config.TEMPERATURE,
+                streaming=True,
+                extra_body={"enable_thinking": False}  # 思考过程
+            )
+            api.chat.embeddings = DashScopeEmbeddings(
+                model=Config.EMBEDDINGS_MODEL_NAME,
+                dashscope_api_key=Config.get_assist_api_key(),
+            )
+            # （2）初始化chroma向量数据库
+            api.chat.vectorstore = Chroma(
+                persist_directory=Config.CHROMA_PERSIST_DIR,#使用配置中的持久化目录
+                collection_name=Config.CHROMA_COLLECTION_NAME,#使用配置中的集合名称
+                embedding_function=api.chat.embeddings,#使用上面初始化的嵌入模型
+            )
+            # 切换模型为主api
             api.chat.model = ChatOpenAI(
                 base_url=Config.DASHSCOPE_API_BASE_URL,
                 api_key=Config.get_api_key(),
@@ -118,19 +137,9 @@ class ChatProcess:
                 streaming=True,
                 extra_body={"enable_thinking": False}  # 思考过程
             )
-            # (2)初始化情感识别链
+            # (3)初始化情感识别链
             api.chat.sentiment_chain = create_sentiment_chain(api.chat.model)
-            api.chat.embeddings = DashScopeEmbeddings(
-                model=Config.EMBEDDINGS_MODEL_NAME,
-                dashscope_api_key=Config.get_api_key(),
-            )
 
-            # （3）初始化chroma向量数据库
-            api.chat.vectorstore = Chroma(
-                persist_directory=Config.CHROMA_PERSIST_DIR,#使用配置中的持久化目录
-                collection_name=Config.CHROMA_COLLECTION_NAME,#使用配置中的集合名称
-                embedding_function=api.chat.embeddings,#使用上面初始化的嵌入模型
-            )
             # （4）初始化模板prompt
             prompt_template = PromptTemplate.from_file(Config.PROMPT_TEMPLATE_PATH)
             api.chat.prompt = ChatPromptTemplate.from_messages(
@@ -142,9 +151,9 @@ class ChatProcess:
                     ("human", prompt_template.template)
                 ]
             )
-
+            # （5）构建链条，按照顺序连接 prompt、获取最终prompt的函数、模型
             api.chat.chain = api.chat.prompt | ChatProcess.get_prompt | api.chat.model
-            # （4）构建带有消息历史的智能体
+            # （6）构建带有消息历史的智能体
             api.chat.with_message_history = RunnableWithMessageHistory(
                 api.chat.chain,
                 ChatProcess.get_session_history,

@@ -13,6 +13,8 @@ class Config:
     # 模型配置
     DASHSCOPE_API_KEY = config_data['dashscope']['api_key']
     DASHSCOPE_API_BASE_URL = config_data['dashscope']['api_base_url']
+    ASSIST_DASHSCOPE_API_BASE_URL = config_data['dashscope']['assist_api_base_url']
+    ASSIST_API_KEY = config_data['dashscope']['assist_api_key']
     MODEL_NAME = config_data['dashscope']['model_name']
     MODEL_MAX_TOKENS = config_data['dashscope']['model_max_tokens']
     EMBEDDINGS_MODEL_NAME = config_data['dashscope']['embeddings_model_name']
@@ -56,6 +58,14 @@ class Config:
         )
         return api_key
 
+    @classmethod
+    def get_assist_api_key(cls) -> Optional[str]:
+        """安全获取Assist API密钥"""
+        assist_api_key = (
+                os.getenv("ASSIST_API_KEY") or
+                getattr(cls, 'ASSIST_API_KEY', None)
+        )
+        return assist_api_key
     @classmethod
     def validate_config(cls):
         """验证配置是否完整"""
