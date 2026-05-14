@@ -2,9 +2,10 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from api.auth import router as auth_router, verify_token
-from api.chat import router as chat_router
-from core.chat_process import ChatProcess
+from api.v1.auth import router as auth_router, verify_token
+from api.v1.admin import router as admin_router
+from api.v1.chat import router as chat_router
+from core.chat.chat_process import ChatProcess
 
 # 初始化FastAPI应用
 app = FastAPI(lifespan=ChatProcess.lifespan)
@@ -65,6 +66,7 @@ async def verify_token_middleware(request: Request, call_next):
 # 注册路由
 app.include_router(auth_router)
 app.include_router(chat_router)
+app.include_router(admin_router)
 
 @app.get("/")
 async def root():

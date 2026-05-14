@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: psylc-backend
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./data:/app/data
+      - ./prompt.txt:/app/prompt.txt
+    environment:
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      ALIYUN_API_KEY: ${ALIYUN_API_KEY:-}
+      DASHSCOPE_API_BASE_URL: ${DASHSCOPE_API_BASE_URL:-}
+      ASSIST_API_KEY: ${ASSIST_API_KEY:-}
+    restart: unless-stopped
+
+  frontend-guest:
+    build:
+      context: ./frontend/guest
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /prod-api
+    container_name: psylc-frontend-guest
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  frontend-admin:
+    build:
+      context: ./frontend/admin
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /
+    container_name: psylc-frontend-admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

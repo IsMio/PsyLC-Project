@@ -1,0 +1,199 @@
+﻿:root {
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --brand-strong: #17325c;
+  --brand-accent: #d7a54a;
+  --brand-accent-soft: #f7d794;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-solid: #ffffff;
+  --surface-muted: #f5f7fb;
+  --header-surface: rgba(255, 255, 255, 0.78);
+  --control-surface: rgba(23, 50, 92, 0.06);
+  --text-main: #17325c;
+  --text-secondary: #6b7a90;
+  --border-soft: rgba(23, 50, 92, 0.1);
+  --shadow-soft: 0 20px 40px rgba(17, 36, 68, 0.08);
+  --body-bg:
+    radial-gradient(circle at top left, rgba(247, 215, 148, 0.18), transparent 28%),
+    linear-gradient(180deg, #f4f7fb 0%, #ecf1f8 100%);
+  --sider-bg-top: #17325c;
+  --sider-bg-bottom: #0e203c;
+}
+
+:root[data-theme='dark'] {
+  --brand-strong: #f4f7ff;
+  --brand-accent: #f0c979;
+  --brand-accent-soft: #8c6a2c;
+  --surface: rgba(19, 25, 35, 0.84);
+  --surface-solid: #131923;
+  --surface-muted: #1b2330;
+  --header-surface: rgba(19, 25, 35, 0.78);
+  --control-surface: rgba(255, 255, 255, 0.08);
+  --text-main: #f4f7ff;
+  --text-secondary: #98a6bd;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 24px 48px rgba(0, 0, 0, 0.34);
+  --body-bg:
+    radial-gradient(circle at top left, rgba(240, 201, 121, 0.12), transparent 28%),
+    linear-gradient(180deg, #0b1017 0%, #141b25 100%);
+  --sider-bg-top: #0f1722;
+  --sider-bg-bottom: #0a1119;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  color: var(--text-main);
+  background: var(--body-bg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.glass-card {
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+}
+
+.page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-toolbar-left,
+.page-toolbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  padding: 22px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface-solid) 88%, transparent) 0%, color-mix(in srgb, var(--surface-muted) 82%, transparent) 100%);
+}
+
+.metric-label {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.metric-value {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-main);
+}
+
+.metric-extra {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(215, 165, 74, 0.14);
+  color: #8c6518;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.section-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.section-desc {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.form-shell {
+  max-width: 880px;
+}
+
+:root[data-theme='dark'] .status-pill {
+  color: #f0c979;
+  background: rgba(240, 201, 121, 0.16);
+}
+
+:root[data-theme='dark'] .ant-table,
+:root[data-theme='dark'] .ant-card,
+:root[data-theme='dark'] .ant-modal-content,
+:root[data-theme='dark'] .ant-form,
+:root[data-theme='dark'] .ant-layout {
+  color: var(--text-main);
+}
+
+@media (max-width: 1200px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-toolbar {
+    align-items: stretch;
+  }
+}
+

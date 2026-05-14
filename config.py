@@ -33,6 +33,10 @@ class Config:
     MAX_HISTORY_MESSAGES = config_data['app']['max_history_messages']
     MAX_HISTORY_CHARS = config_data['app']['max_history_chars']
     MAX_SINGLE_MESSAGE_CHARS = config_data['app']['max_single_message_chars']
+    KNOWLEDGE_UPLOAD_DIR = config_data['app'].get('knowledge_upload_dir', 'data/knowledge_uploads')
+    KNOWLEDGE_ALLOWED_EXTENSIONS = config_data['app'].get('knowledge_allowed_extensions', ['.txt', '.md', '.pdf', '.docx', '.html', '.htm'])
+    OUTPUT_FILTER_ENABLED = config_data['app'].get('output_filter_enabled', True)
+    OUTPUT_FILTER_REVIEW_ENABLED = config_data['app'].get('output_filter_review_enabled', True)
     REDIS_HOST = config_data['redis']['redis_host']
     REDIS_PORT = config_data['redis']['redis_port']
     REDIS_DB = config_data['redis']['redis_db']

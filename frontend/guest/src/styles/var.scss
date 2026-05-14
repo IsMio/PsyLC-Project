@@ -1,0 +1,65 @@
+:root {
+  /* 头部高度 */
+  --header-container-default-heigth: 56px;
+
+  /* 左侧侧边栏背景色 */
+  --sidebar-background-color: #f3f4f6;
+  
+
+  /* 登录弹框变量 */
+  --login-dialog-width: 738px;
+  --login-dialog-height: 416px;
+  --login-dialog-padding: 0px;
+  --login-dialog-section-padding: 0px;
+  --login-dialog-border-radius: 24px;
+  --login-dialog-mode-toggle-color: #409eff;
+  --login-dialog-logo-background: #ffffff;
+  --login-dialog-logo-text-color: #191919;
+
+
+
+  /* 覆盖 element-plus 样式 */
+  --el-border-radius-base: 12px !important;
+  --el-messagebox-border-radius: 16px !important;
+
+  /* App base colors */
+  --app-bg-color: #f5f7fa;
+  --app-text-color: #1f2328;
+  --app-text-color-secondary: rgb(0 0 0 / 85%);
+  --panel-bg-color: #ffffff;
+  --panel-hover-bg-color: rgb(0 0 0 / 4%);
+}
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* App base colors */
+  --chat-text-color: #e5e7eb;
+  --app-bg-color: #0f1115;
+  --app-text-color: #e5e7eb;
+  --app-text-color-secondary: rgb(229 231 235 / 92%);
+  --panel-bg-color: #1b2028;
+  --panel-hover-bg-color: rgb(255 255 255 / 8%);
+
+  /* Layout colors */
+  --sidebar-background-color: #171a21;
+  --login-dialog-logo-background: #171a21;
+  --login-dialog-logo-text-color: #f3f4f6;
+
+  /* Element Plus core tokens */
+  --el-fill-color-blank: #2a303b;
+  --el-bg-color: #14171d;
+  --el-bg-color-overlay: #1c212a;
+  --el-fill-color: #1d222b;
+  --el-fill-color-light: #232936;
+  --el-text-color-primary: #e5e7eb;
+  --el-text-color-regular: #cfd3dc;
+  --el-border-color: #2b3240;
+  --el-border-color-light: #252b36;
+  --el-mask-color: rgb(0 0 0 / 65%);
+}
+html,
+body,
+#app {
+  color: var(--app-text-color);
+  background-color: var(--app-bg-color);
+}

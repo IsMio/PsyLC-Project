@@ -1,6 +1,6 @@
 import uuid ,time
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 
 
 
@@ -27,6 +27,8 @@ class ChatCompletionResponse(BaseModel):
     created: int = Field(default_factory=lambda: int(time.time()))
     choices: List[ChatCompletionResponseChoice]
     system_fingerprint: Optional[str] = None
+    filtered: Optional[bool] = False
+    filter_reason: Optional[str] = None
 class CreateSessionRequest(BaseModel):
     sessionTitle: str
     userId: Optional[str] = "88823a1b-c1ce-4aa7-ba6e-a937cf4baa1d"
@@ -65,7 +67,7 @@ class MessageListRequest(BaseModel):
     pageNum: int = 1
     pageSize: int = 20
 
-def standard_response(code: int = 200, msg: str = "ok", data: Optional[dict] = None, rows: Optional[list] = None):
+def standard_response(code: int = 200, msg: str = "ok", data: Optional[Any] = None, rows: Optional[list] = None):
     """标准响应结构"""
     response = {"code": code, "msg": msg}
     if data is not None:
